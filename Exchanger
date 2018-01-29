@@ -1,0 +1,114 @@
+Sub ExchDotOnComm()
+Dim Limit As Long
+Limit = ActiveSheet.Cells(Rows.Count, 2).End(xlUp).Row
+
+'Searching for wrong characters in material name
+Range("K2:K" & Limit).Select
+For Each Cell In Selection
+If InStrRev(Cell.Value, "@") Or InStrRev(Cell.Value, "*") Or InStrRev(Cell.Value, " ") Or InStrRev(Cell.Value, "#") Then
+Cell.Interior.Color = RGB(255, 133, 133)
+End If
+Next
+
+'This is searching for "key" in PH
+Range("P2:P" & Limit).Select
+For Each Cell In Selection
+If InStrRev(Cell.Value, "§") Then
+Cell.Interior.Color = RGB(255, 133, 133)
+End If
+Next
+
+'This is echanging format of W&D
+Range("Q2:Q" & Limit).Select
+    For Each Cell In Selection
+    Cell.NumberFormat = "@"
+    Cell.Value = Replace(Cell.Value, ".", ",")
+Next
+Range("R2:R" & Limit).Select
+    For Each Cell In Selection
+    Cell.NumberFormat = "@"
+    Cell.Value = Replace(Cell.Value, ".", ",")
+Next
+Range("S2:S" & Limit).Select
+    For Each Cell In Selection
+    Cell.NumberFormat = "@"
+    Cell.Value = Replace(Cell.Value, ".", ",")
+Next
+Range("T2:T" & Limit).Select
+    For Each Cell In Selection
+    Cell.NumberFormat = "@"
+    Cell.Value = Replace(Cell.Value, ".", ",")
+Next
+Range("U2:U" & Limit).Select
+    For Each Cell In Selection
+    Cell.NumberFormat = "@"
+    Cell.Value = Replace(Cell.Value, ".", ",")
+Next
+
+'This is searching for wrong Inverter
+Range("X2:X" & Limit).Select
+For Each Cell In Selection
+If Cell.Value = "N" Or Cell.Value = 0 Or Cell.Value = 1 Then
+Cell.Borders.LineStyle = xlContinuous
+Cell.Borders.Color = RGB(217, 217, 217)
+Else
+Cell.Interior.Color = RGB(255, 133, 133)
+End If
+Next
+
+'This is searching for wrong CE-Mark
+Range("Z2:Z" & Limit).Select
+For Each Cell In Selection
+If Cell.Value = "YY" Or Cell.Value = "YN" Or Cell.Value = "NN" Then
+Cell.Borders.LineStyle = xlContinuous
+Cell.Borders.Color = RGB(217, 217, 217)
+Else
+Cell.Interior.Color = RGB(255, 133, 133)
+End If
+Next
+
+'This is searching for wrong Indoor/Outdoor
+Range("AD2:AD" & Limit).Select
+For Each Cell In Selection
+If Cell.Value = "Indoor" Or Cell.Value = "Outdoor" Or Cell.Value = "N.A." Or Cell.Value = "Monobloc" Then
+Cell.Borders.LineStyle = xlContinuous
+Cell.Borders.Color = RGB(217, 217, 217)
+Else
+Cell.Interior.Color = RGB(255, 133, 133)
+End If
+Next
+
+'This is searching for empty Sales Brand
+Range("AK2:AK" & Limit).Select
+For Each Cell In Selection
+If IsEmpty(Cell.Value) = True Then
+Cell.Interior.Color = RGB(255, 133, 133)
+End If
+Next
+
+'This is searching for empty Source
+Range("AR2:AR" & Limit).Select
+For Each Cell In Selection
+If IsEmpty(Cell.Value) = True Then
+Cell.Interior.Color = RGB(255, 133, 133)
+End If
+Next
+
+'This is searching for empty Factory
+Range("AT2:AT" & Limit).Select
+For Each Cell In Selection
+If IsEmpty(Cell.Value) = True Then
+Cell.Interior.Color = RGB(255, 133, 133)
+End If
+Next
+
+'This is searching for "Key" between W:AU
+Range("W2:AU" & Limit).Select
+For Each Cell In Selection
+If InStrRev(Cell.Value, "§") Then
+Cell.Interior.Color = RGB(255, 133, 133)
+End If
+Next
+
+
+End Sub
