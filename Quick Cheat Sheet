@@ -1,0 +1,92 @@
+Option Compare Text 'Does not consider lower/upper case
+
+Sub makro()
+
+''Variables
+'Dim anyVal As Integer
+'Dim anyVal2 As Double
+'Dim anyVal3 As String
+'Dim anyVal4 As Boolean
+'
+''Hiding rows and column
+'ThisWorkbook.Sheets(1).Rows("2:3").Hidden = True
+'ThisWorkbook.Sheets(1).Rows("2:3").Hidden = False
+'
+'ThisWorkbook.Sheets(1).Columns("A:B").Hidden = True
+'ThisWorkbook.Sheets(1).Columns("A:B").Hidden = False
+'
+''Selections
+'Selection.Value = "Yolo"
+'Selection.Interior.Color = vbRed
+'Selection.Font.Color = RGB(220, 250, 220)
+'
+''String methods
+'anyVal3 = "This is String"
+'ThisWorkbook.Sheets(1).Rows("2:3").Value = Left(anyVal3, 4)
+'ThisWorkbook.Sheets(1).Rows("4:5").Value = Right("This is String", 4)
+'
+'anyVal3 = ThisWorkbook.Name
+'anyVal = Len(anyVal3) - 2
+'
+'anyVal2 = InStr(1, anyVal3, "B")
+'ThisWorkbook.Sheets(1).Cells(2, 1).Value = Replace(ThisWorkbook.Sheets(1).Cells(2, 1).Value, "s", "SS")
+'
+''Dates and Time
+'Dim myDate As Date
+'Dim myTime As Integer
+''Godina liczona od 12:00 AM -> myDate = 12 / 6 / 2018
+'myDate = #6/18/2018#
+'ThisWorkbook.Sheets(1).Cells(3, 1).Value = myDate
+'myDate = DateValue(Now)
+'ThisWorkbook.Sheets(1).Cells(3, 1).Value = TimeValue(Now)
+'ThisWorkbook.Sheets(1).Cells(4, 1).Value = Weekday(Now, vbMonday)
+'
+''Select Case
+'Dim userChoice As String
+'userChoice = InputBox("Yes or No: ")
+'Select Case userChoice
+'Case "Yes"
+'MsgBox ("Yes!")
+'Case "No"
+'MsgBox ("No!")
+'End Select
+'
+''Arrays
+'Dim myArray(3) As Double
+'myArray(0) = 1
+'myArray(1) = 2
+'myArray(2) = 3
+'myArray(3) = 4
+'MsgBox (UBound(myArray)) ' - last index of an array
+'MsgBox (LBound(myArray)) ' - firstindex of an array
+'
+''Looping through workbook objects
+'For Each cell In ThisWorkbook.Sheets
+'    cell.Name = 2
+'Next cell
+'
+'For Each cell In Application.Workbooks 'Selection.Cells
+'    cell.Save
+'Next cell
+'
+''For ''Loop For x = 1 To 10
+'For x = 10 To 1 Step -1
+'    ActiveWorkbook.Sheets("2").Cells(x + 19, 1).Value = x
+'Next x
+'
+''Do While
+'Do While userResp <> "Yes"
+'    userResp = InputBox("Please enter: ")
+'Loop
+'
+''Do Until
+'Do Until userResp = "Yes"
+'    userResp = InputBox("Please enter: ")
+'Loop
+'
+''Screen Updating
+'Application.ScreenUpdating = False
+'ActiveWorkbook.Sheets("2").Cells(1, 2).Value = "llo"
+'Application.ScreenUpdating = True
+
+End Sub
