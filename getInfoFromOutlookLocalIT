@@ -1,0 +1,57 @@
+Sub getInfoFromOutlookLocalIT()
+
+Dim OutlookLocalIT As Outlook.Application
+Dim OutlookLocalITNameSpace As Namespace
+Dim Folder As MAPIFolder
+Dim OutlookEmail As Variant
+Dim i, u As Long
+Dim sentOnemail As Date
+Dim sentOndb As Date
+i = ActiveWorkbook.Sheets("DashBoard").Cells(Rows.Count, 6).End(xlUp).Row
+u = ActiveWorkbook.Sheets("DashBoard").Cells(Rows.Count, 8).End(xlUp).Row
+
+Set OutlookLocalIT = New Outlook.Application
+Set OutlookLocalITNameSpace = OutlookLocalIT.GetNamespace("MAPI")
+Set Folder = OutlookLocalITNameSpace.GetDefaultFolder(olFolderDrafts)
+
+For Each OutlookEmail In Folder.Items
+
+    If Mid(OutlookEmail.Body, 1, 12) = "Hi Local IT!" Then
+    
+        '-----Get Date from the message sent-------'
+        sentOnemail = DateValue(OutlookEmail.SentOn)
+        
+        '----------Get Date from the last registered request-----------'
+        sentOndb = ActiveWorkbook.Sheets("DashBoard").Cells(u, 8).Value
+        
+        If DateValue(OutlookEmail.SentOn) = DateValue(Now) Then
+        
+            If sentOnemail > sentOndb Then
+                Range("Description").Offset(i, 0) = OutlookEmail.Body
+                ActiveWorkbook.Sheets("DashBoard").Rows(i + 1).RowHeight = 15
+                i = i + 1
+                    
+                    'Calling module matchClmns
+                    Call matchClmns.matchClmns
+                    u = ActiveWorkbook.Sheets("DashBoard").Cells(Rows.Count, 8).End(xlUp).Row
+                    
+            ElseIf TimeValue(OutlookEmail.SentOn) > ActiveWorkbook.Sheets("DashBoard").Cells(u, 9).Value Then
+                Range("Description").Offset(i, 0) = OutlookEmail.Body
+                ActiveWorkbook.Sheets("DashBoard").Rows(i + 1).RowHeight = 15
+                i = i + 1
+                
+                    'Calling module matchClmns
+                    Call matchClmns.matchClmns
+                    u = ActiveWorkbook.Sheets("DashBoard").Cells(Rows.Count, 8).End(xlUp).Row
+                    
+            Else: 'Do Nothing Actually hue hue
+            
+            End If
+            
+        End If
+        
+    End If
+    
+Next OutlookEmail
+
+End Sub
