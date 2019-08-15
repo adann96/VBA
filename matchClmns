@@ -1,0 +1,81 @@
+Option Explicit
+Sub matchClmns()
+
+Dim i, u As Long
+Dim fromCell As Byte
+Dim positionCell As Byte
+Dim departmentCell As Byte
+Dim emailCell As Byte
+Dim issueCell As Byte
+Dim dateCell As Integer
+Dim timeCell As Integer
+Dim descCell As Integer
+
+Dim descRang As Range
+Dim lastRow, lastRowDesc As Long
+lastRowDesc = ActiveWorkbook.Sheets("DashBoard").Cells(Rows.Count, 7).End(xlUp).Row
+Set descRang = ActiveWorkbook.Sheets("DashBoard").Range(Cells(lastRow + 1, 7), Cells(lastRow + 1, 7))
+
+For i = ActiveWorkbook.Sheets("DashBoard").Cells(Rows.Count, 1).End(xlUp).Row To lastRowDesc - 1
+
+    '-------------------------------------------------------------------------------------------------------------'
+    fromCell = InStr(ActiveWorkbook.Sheets("DashBoard").Range(Cells(i + 1, 7), Cells(i + 1, 7)).Value, "From:")
+    positionCell = InStr(ActiveWorkbook.Sheets("DashBoard").Range(Cells(i + 1, 7), Cells(i + 1, 7)).Value, "Position:")
+    departmentCell = InStr(ActiveWorkbook.Sheets("DashBoard").Range(Cells(i + 1, 7), Cells(i + 1, 7)).Value, "Department:")
+    emailCell = InStr(ActiveWorkbook.Sheets("DashBoard").Range(Cells(i + 1, 7), Cells(i + 1, 7)).Value, "Email:")
+    issueCell = InStr(ActiveWorkbook.Sheets("DashBoard").Range(Cells(i + 1, 7), Cells(i + 1, 7)).Value, "Type:")
+    descCell = InStr(ActiveWorkbook.Sheets("DashBoard").Range(Cells(i + 1, 7), Cells(i + 1, 7)).Value, "Description:")
+    dateCell = InStr(ActiveWorkbook.Sheets("DashBoard").Range(Cells(i + 1, 7), Cells(i + 1, 7)).Value, "When (Date):")
+    timeCell = InStr(ActiveWorkbook.Sheets("DashBoard").Range(Cells(i + 1, 7), Cells(i + 1, 7)).Value, "When (Time):")
+    
+    '--------------------------------------------------------------------------------------------------------------'
+        'ID
+        Call requestNumberAlgorithm.requestNumberAlgorithm
+        
+        'Name and Surname of requestor
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 2).Value = Mid(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 7).Value, fromCell + 5, (positionCell - (fromCell + 5)))
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 2).Value = Trim(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 2).Value)
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 2).Value = Replace(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 2).Value, vbLf, "")
+        
+        'Name of position
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 3).Value = _
+            Mid(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 7).Value, positionCell + 9, (departmentCell - (positionCell + 9)))
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 3).Value = Trim(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 3).Value)
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 3).Value = Replace(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 3).Value, vbLf, "")
+        
+        'Department
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 4).Value = _
+            Mid(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 7).Value, departmentCell + 11, (emailCell - (departmentCell + 11)))
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 4).Value = Trim(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 4).Value)
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 4).Value = Replace(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 4).Value, vbLf, "")
+        
+        'email address
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 5).Value = _
+            Mid(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 7).Value, emailCell + 6, (issueCell - (emailCell + 6)))
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 5).Value = Trim(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 5).Value)
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 5).Value = Replace(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 5).Value, vbLf, "")
+        
+        'type of issue
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 6).Value = _
+            Mid(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 7).Value, issueCell + 5, (descCell - (issueCell + 5)))
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 6).Value = Trim(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 6).Value)
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 6).Value = Replace(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 6).Value, vbLf, "")
+        
+        'date
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 8).Value = _
+            Mid(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 7).Value, dateCell + 12, 11)
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 8).Value = Trim(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 8).Value)
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 8).Value = Replace(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 8).Value, vbLf, "")
+        
+        'time
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 9).Value = _
+            Mid(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 7).Value, timeCell + 12, 9)
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 9).Value = Trim(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 9).Value)
+        
+        'desc
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 7).Value = Mid(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 7).Value, descCell + 12, dateCell - descCell - 16)
+        ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 7).Value = Trim(ActiveWorkbook.Sheets("DashBoard").Cells(i + 1, 7).Value)
+
+Next i
+
+End Sub
